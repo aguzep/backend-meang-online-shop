@@ -6,7 +6,7 @@ Fecha de nacimiento y registro en formato ISO
 """
 type User {
     "Identificado único"
-    id: ID! 
+    id: ID!
     "Nombre de pila"
     name: String!
     "Apellido del usuario"
@@ -21,4 +21,6 @@ type User {
     birthday: String!
     "Permisos del usuario"
     role: Role!
+    "Activo o no activo"
+    active: Boolean
 }
