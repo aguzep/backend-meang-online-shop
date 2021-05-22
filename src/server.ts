@@ -8,6 +8,7 @@ import schema from './schema';
 import expressPlayground from 'graphql-playground-middleware-express';
 import Database from './lib/database';
 import { IContext } from './interfaces/context.interface';
+import chalk from 'chalk';
 
 // Configuración de las variables de entorno (lectura)
 if (process.env.NODE_ENV !== 'production') {
@@ -39,7 +40,9 @@ async function init() {
 
     server.applyMiddleware({app});
     
-    app.get('/', expressPlayground({
+    app.get(
+        '/',
+        expressPlayground({
         endpoint: '/graphql'
     }));
 
@@ -47,9 +50,14 @@ async function init() {
     const PORT = process.env.PORT || 2002;
     httpServer.listen(
         {
-            port: PORT
+            port: PORT,
         },
-        () => console.log(`http://localhost:${PORT} API MEANG - Online Shop Start`)
+        () => {
+            console.log('=======SERVER API GRAPHQL=======');
+            console.log(`STATUS: ${chalk.greenBright('ONLINE')}`);
+            console.log(`MESSAGE: ${chalk.greenBright('API MEANG - Online Shop Start')}`);
+            console.log(`http://localhost:${PORT}`);
+        }
     );
 }
 init();
