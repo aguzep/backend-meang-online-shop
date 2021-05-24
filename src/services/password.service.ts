@@ -23,7 +23,7 @@ class PasswordService extends ResolversOperationsService {
         if (user === undefined || user === null) {
             return {
                 status: false,
-                message: `Usuario con el ${email} no existe`
+                message: `Usuario con el correo ${email} no existe`
             };
         }
         const newUser = {

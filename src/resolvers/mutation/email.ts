@@ -1,11 +1,11 @@
-import { findOneElement, updateOneElement } from './../../lib/db-operations';
 import { IResolvers } from 'graphql-tools';
 import JWT from '../../lib/jwt';
-import { COLLECTIONS, EXPIRETIME, MESSAGES } from '../../config/constants';
 import UsersService from '../../services/users.service';
-import bcrypt from 'bcrypt';
 import MailService from '../../services/mail.service';
 import PasswordService from '../../services/password.service';
+import { MESSAGES } from '../../config/constants';
+
+
 const resolversMailMutation: IResolvers = {
     Mutation: {
         async sendEmail(_, { mail }) {
@@ -19,7 +19,7 @@ const resolversMailMutation: IResolvers = {
             if (verify?.status === false) {
                 return { status: false, message: verify.message };
             }
-            return new UsersService(_, { id, user: { birthday, password } }, { token, db }).unblock(true);
+            return new UsersService(_, { id, user: { birthday, password } }, { token, db }).unblock(true, false);
         },
         async resetPassword(_, { email }, { db }) {
             return new PasswordService(_, {user: {email}}, {db}).sendMail();
