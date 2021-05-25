@@ -9,7 +9,10 @@ export const SECRET_KEY =
 
 export enum COLLECTIONS {
     USERS = 'users',
-    GENRES = 'genres'
+    GENRES = 'genres',
+    SHOP_PRODUCT = 'products_platforms',
+    PRODUCTS = 'products',
+    PLATFORMS = 'platforms'
 }
 
 

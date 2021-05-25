@@ -1,0 +1,36 @@
+type Query {
+  "Lista de productos de la tienda"
+  shopProducts(
+    "Página seleccionada para acceder a ella"
+    page: Int = 1
+    "Los productos de la tienda que se obtendrán por página"
+    itemsPage: Int = 20
+    "Especificar el estado del producto que queremos mostrar"
+    active: ActiveFilterEnum = ACTIVE): ResultShopProduct
+  shopProductsPlatforms (
+    "Página seleccionada para acceder a ella"
+    page: Int = 1
+    "Los productos de la tienda que se obtendrán por página"
+    itemsPage: Int = 20
+    "Especificar el estado del producto que queremos mostrar"
+    active: ActiveFilterEnum = ACTIVE,
+    "Especificar el ID de la plataforma seleccionada"
+    platform: ID!,
+    "Seleccionar los elementos de manera aleatoria"
+    random: Boolean = false): ResultShopProduct
+
+  shopProductsOffersLast (
+    "Página seleccionada para acceder a ella"
+    page: Int = 1
+    "Los productos de la tienda que se obtendrán por página"
+    itemsPage: Int = 20
+    "Especificar el estado del producto que queremos mostrar"
+    active: ActiveFilterEnum = ACTIVE,
+    "Tope de precio para considerar como oferta"
+    topPrice: Float = -1
+    "Tope para especificar stock"
+    lastUnits: Int = -1
+    "Seleccionar los elementos de manera aleatoria"
+    random: Boolean = false): ResultShopProduct
+
+}
