@@ -8,20 +8,27 @@ class ShopProductsService extends ResolversOperationsService {
         super(root, variables, context);
     }
 
-    async items(active: string = ACTIVE_VALUES_FILTER.ACTIVE, platform: string = '', random: boolean = false, otherFilters: object = {}) {
+    async items
+        (active: string = ACTIVE_VALUES_FILTER.ACTIVE,
+            platform: Array<string> = ['-1'],
+            random: boolean = false,
+            otherFilters: object = {}
+        ) {
+
         let filter: object = { active: { $ne: false } };
         if (active === ACTIVE_VALUES_FILTER.ALL) {
             filter = {};
         } else if (active === ACTIVE_VALUES_FILTER.ALL) {
             filter = { active: false };
         }
-        if (platform !== '' && platform !== undefined) {
-            filter = { ...filter, ...{ platform_id: platform } };
+        if (platform[0] !== '-1' && platform !== undefined) {
+            filter = { ...filter, ...{ platform_id: {$in: platform} } };
         }
 
         if (otherFilters !== {} && otherFilters !== undefined) {
             filter = { ...filter, ...otherFilters };
         }
+
         const page = this.getVariables().pagination?.page;
         const itemsPage = this.getVariables().pagination?.itemsPage;
         if (!random) {
@@ -36,14 +43,14 @@ class ShopProductsService extends ResolversOperationsService {
         );
         if (result.length === 0 || result.length !== itemsPage) {
             return {
-                info: { page: 1, pages: 1, itemsPage, total: 0},
+                info: { page: 1, pages: 1, itemsPage, total: 0 },
                 status: false,
                 message: 'La información que hemos pedido no se ha obtenido tal y como deseabamos',
                 shopProducts: [],
             };
         }
         return {
-            info: { page: 1, pages: 1, itemsPage, total: itemsPage},
+            info: { page: 1, pages: 1, itemsPage, total: itemsPage },
             status: true,
             message: 'La información que hemos pedido se ha cargado correctamente',
             shopProducts: result,
